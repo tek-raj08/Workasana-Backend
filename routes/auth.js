@@ -94,4 +94,8 @@ authRouter.post("/auth/logout", async(req, res) => {
     res.status(200).json({message: "Logged out Successfully."})
 })
 
+
+app.get("/", (req, res) => {
+    res.json("Hello Server!")
+})
 module.exports = { authRouter }
