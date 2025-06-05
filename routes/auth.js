@@ -95,7 +95,7 @@ authRouter.post("/auth/logout", async(req, res) => {
 })
 
 
-app.get("/", (req, res) => {
+authRouter.get("/", (req, res) => {
     res.json("Hello Server!")
 })
 module.exports = { authRouter }
