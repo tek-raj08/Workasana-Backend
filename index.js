@@ -8,7 +8,7 @@ const {userAuth} = require("./middlewares/userAuth")
 
 
 const corsOptions = {
-   origin: "*",
+   origin: "https://workasana-frontend-git-main-tek-rajs-projects.vercel.app",
    credentials: true,
    optionSuccessStatus: 200
 }
