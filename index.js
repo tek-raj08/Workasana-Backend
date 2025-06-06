@@ -7,7 +7,7 @@ const cookieParser = require("cookie-parser")
 const {userAuth} = require("./middlewares/userAuth")
 
 
-const allowedOrigins = ["http://localhost:5173", "https://workasana-frontend-o40q5110e-tek-rajs-projects.vercel.app/"]
+const allowedOrigins = ["http://localhost:5173", "https://workasana-frontend-git-main-tek-rajs-projects.vercel.app"]
 
 const corsOptions = {
    origin: (origin, callback) => {
