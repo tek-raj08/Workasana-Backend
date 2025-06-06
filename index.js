@@ -10,7 +10,8 @@ const {userAuth} = require("./middlewares/userAuth")
 const corsOptions = {
    // origin: "https://workasana-frontend-git-main-tek-rajs-projects.vercel.app",
    // origin: "http://localhost:5173"
-   origin: "*",
+   origin: "https://workasana-frontend-o40q5110e-tek-rajs-projects.vercel.app",
+   // origin: "*",
    credentials: true,
    optionSuccessStatus: 200
 }
