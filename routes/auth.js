@@ -16,6 +16,11 @@ authRouter.post("/auth/signup", async (req, res) => {
         validateSingupData(req);
         const { firstName, lastName, email, password } = req.body
 
+        const existingUser = await User.findOne({email})
+        if(existingUser){
+            return res.status(400).json({message: "User already exists, Please Login."})
+        }
+
         // Encrypt password
         const passwordHash = await bcrypt.hash(password, 10)
 
@@ -68,7 +73,7 @@ authRouter.post("/auth/login", async (req, res) => {
             res.cookie("token", token, {
                 httpOnly: true,
                 secure: true,          // Set to true in production with HTTPS
-                sameSite: "Strict",
+                sameSite: "none",
                 maxAge: 24 * 3600000         // 1 hour
             });
             // console.log(decodedToken);
@@ -88,7 +93,7 @@ authRouter.post("/auth/logout", async(req, res) => {
     res.clearCookie(userAuth, {
         httpOnly: true,
         secure: true,
-        sameSite: 'strict'
+        sameSite: 'none'
     })
 
     res.status(200).json({message: "Logged out Successfully."})
