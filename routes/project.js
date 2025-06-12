@@ -4,7 +4,7 @@ const { userAuth } = require("../middlewares/userAuth")
 
 const projectRouter = express.Router()
 
-projectRouter.post("/projects", userAuth, async(req, res) => {
+projectRouter.post("/projects", async(req, res) => {
     try{
         const {name, description, status} = req.body
 
@@ -23,7 +23,7 @@ projectRouter.post("/projects", userAuth, async(req, res) => {
     }
 })
 
-projectRouter.get("/projects", userAuth, async(req, res) => {
+projectRouter.get("/projects", async(req, res) => {
 
     try{
         const projects = await Project.find()
