@@ -6,9 +6,16 @@ const cors = require("cors")
 const cookieParser = require("cookie-parser")
 const {userAuth} = require("./middlewares/userAuth")
 
+const allowedOrigins = ["http://localhost:5173", "https://workasana-frontend-git-main-tek-rajs-projects.vercel.app"]
 
 const corsOptions = {
-   origin: "*",
+   origin: (origin, callback) => {
+      if(allowedOrigins.indexOf(origin) !== -1 || !origin){
+         callback(null, true)
+      }else{
+         callback(new Error("Not allowed by CORS."))
+      }
+   },
    credentials: true,
    optionSuccessStatus: 200
 }
@@ -17,6 +24,11 @@ const app = express()
 app.use(express.json())
 app.use(cors(corsOptions))
 app.use(cookieParser())
+
+app.use((err, req, res, next) => {
+   console.error(err.stack);
+   res.status(500).json({ message: 'Internal Server Error' });
+});
 
 
 const {authRouter} = require("./routes/auth")

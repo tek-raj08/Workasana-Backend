@@ -69,7 +69,7 @@ authRouter.post("/auth/login", async (req, res) => {
                 httpOnly: true,
                 secure: true,          // Set to true in production with HTTPS
                 sameSite: "Strict",
-                maxAge: 1 * 3600000         // 1 hour
+                maxAge: 24 * 3600000         // 1 hour
             });
             // console.log(decodedToken);
 
