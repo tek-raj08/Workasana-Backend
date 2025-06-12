@@ -3,7 +3,7 @@ const { userAuth } = require("../middlewares/userAuth");
 const Tag = require("../models/tag.models")
 const tagRouter = express.Router();
 
-tagRouter.post("/tags", async(req, res) => {
+tagRouter.post("/tags",userAuth, async(req, res) => {
 
     try{
         const {name} = req.body;
@@ -19,7 +19,7 @@ tagRouter.post("/tags", async(req, res) => {
     }
 })
 
-tagRouter.get("/tags", async(req, res) => {
+tagRouter.get("/tags",userAuth, async(req, res) => {
 
     try{
         const tags = await Tag.find()

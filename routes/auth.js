@@ -78,7 +78,7 @@ authRouter.post("/auth/login", async (req, res) => {
             });
             // console.log(decodedToken);
 
-            return res.status(201).json({ message: "Login Successfull.", user })
+            return res.status(201).json({ message: "Login Successfull.", token,  user })
         } else {
             throw new Error("Invalid Credentials")
         }
@@ -90,10 +90,8 @@ authRouter.post("/auth/login", async (req, res) => {
 
 authRouter.post("/auth/logout", async(req, res) => {
 
-    res.clearCookie(userAuth, {
-        httpOnly: true,
-        secure: true,
-        sameSite: 'none'
+    res.cookie("token", null, {
+       expires: new Date(Date.now())
     })
 
     res.status(200).json({message: "Logged out Successfully."})

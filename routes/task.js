@@ -7,7 +7,7 @@ const { userAuth } = require("../middlewares/userAuth");
 
 const taskRouter = express.Router();
 
-taskRouter.post("/tasks", async(req, res) => {
+taskRouter.post("/tasks",userAuth, async(req, res) => {
 
     try{
         const {name, project, team, owners, tags, timeToComplete, priority, status, dueDate} = req.body;
@@ -33,7 +33,7 @@ taskRouter.post("/tasks", async(req, res) => {
     }
 })
 
-taskRouter.post("/tasks/:taskId", async(req, res) => {
+taskRouter.post("/tasks/:taskId",userAuth, async(req, res) => {
 
     try{
         const taskId = req.params.taskId
@@ -46,7 +46,7 @@ taskRouter.post("/tasks/:taskId", async(req, res) => {
     }
 })
 
-taskRouter.get("/tasks", async(req, res) => {
+taskRouter.get("/tasks",userAuth, async(req, res) => {
     try{
 
         const {team, owners, tags, project, status} = req.query
@@ -99,7 +99,7 @@ taskRouter.get("/tasks", async(req, res) => {
 })
 
 
- taskRouter.post("/tasks/:taskId/add-member", async(req, res) => {
+ taskRouter.post("/tasks/:taskId/add-member",userAuth, async(req, res) => {
     try{
         const {taskId} = req.params;
         const {ownerId} = req.body;

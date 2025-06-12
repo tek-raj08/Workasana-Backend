@@ -4,7 +4,7 @@ const Team = require("../models/team.models")
 
 const teamRouter = express.Router();
 
-teamRouter.post("/teams", async(req, res) => {
+teamRouter.post("/teams",userAuth, async(req, res) => {
 
     try{
         const {name, member, description} = req.body;
@@ -24,7 +24,7 @@ teamRouter.post("/teams", async(req, res) => {
     
 })
 
-teamRouter.get("/teams", async(req, res) => {
+teamRouter.get("/teams",userAuth, async(req, res) => {
 
     try{
 
