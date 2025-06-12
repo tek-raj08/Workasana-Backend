@@ -8,6 +8,8 @@ const {userAuth} = require("./middlewares/userAuth")
 
 const allowedOrigins = ["http://localhost:5173", "https://workasana-frontend-git-main-tek-rajs-projects.vercel.app"]
 
+const allowedOrigins = ["http://localhost:5173", "https://workasana-frontend-git-main-tek-rajs-projects.vercel.app"]
+
 const corsOptions = {
    origin: (origin, callback) => {
       if(allowedOrigins.indexOf(origin) !== -1 || !origin){
