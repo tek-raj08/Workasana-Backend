@@ -10,12 +10,13 @@ const allowedOrigins = ["http://localhost:5173", "https://workasana-frontend-git
 
 
 const corsOptions = {
-   origin: (origin, callback) => {
-      if(allowedOrigins.indexOf(origin) !== -1 || !origin){
-         callback(null, true)
-      }else{
-         callback(new Error("Not allowed by CORS."))
-      }
+   origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true); // Allow the request
+    } else {
+      callback(new Error("Not allowed by CORS")); // Block the request
+    }
+  
    },
    credentials: true,
    optionSuccessStatus: 200
@@ -26,10 +27,6 @@ app.use(express.json())
 app.use(cors(corsOptions))
 app.use(cookieParser())
 
-app.use((err, req, res, next) => {
-   console.error(err.stack);
-   res.status(500).json({ message: 'Internal Server Error' });
-});
 
 
 const {authRouter} = require("./routes/auth")
