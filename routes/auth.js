@@ -8,6 +8,15 @@ const { userAuth } = require("../middlewares/userAuth")
 
 const authRouter = express.Router();
 
+authRouter.get("/auth/check", userAuth, async(req, res) => {
+    try{
+
+       return res.status(200).json({ message: "Authenticated" }); 
+    }catch(err){
+       return res.status(401).json({error: "Not Authenticated."})
+    }
+})
+
 authRouter.post("/auth/signup", async (req, res) => {
 
     try {
