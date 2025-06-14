@@ -77,9 +77,9 @@ authRouter.post("/auth/login", async (req, res) => {
                 httpOnly: true,
                 secure: true,          // Set to true in production with HTTPS
                 sameSite: "None",
-                      // 24 hour
+                expires: new Date(Date.now() + 24 * 3600000)
             },
-            {expires: new Date(Date.now() + 24 * 3600000)}
+            
         );
             // console.log(decodedToken);
 
