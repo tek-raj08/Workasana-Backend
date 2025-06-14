@@ -11,14 +11,14 @@ const userAuth = async(req, res, next) => {
         const token = req.cookies?.token || (req.headers['authorization']?.split(" ")[1]);
         
         if(!token){
-            return res.status(404).json({message: "Token is not found."})
+            return res.status(401).json({message: "Token is not found. Please Login."})
         }
 
         const decodedToken = jwt.verify(token, JWT_SECRET)
 
         const {_id} = decodedToken;
 
-        const user = await User.findOne({_id})
+        const user = await User.findById({_id})
 
         if(!user){
             throw new Error("User not found.")

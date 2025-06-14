@@ -62,9 +62,11 @@ authRouter.post("/auth/login", async (req, res) => {
         })
 
         if (!user) {
-            throw new Error("User not found.")
+            return res.status(404).json({message: "Invalid Credentials."})
         }
+
         const isPasswordValid = await user.validatePassword(password); // --> from user model
+
         if (isPasswordValid) {
 
             // get token from user model
@@ -73,18 +75,21 @@ authRouter.post("/auth/login", async (req, res) => {
             res.cookie("token", token, {
                 httpOnly: true,
                 secure: true,          // Set to true in production with HTTPS
-                sameSite: "none",
-                maxAge: 24 * 3600000         // 1 hour
-            });
+                sameSite: "None",
+                      // 24 hour
+            },
+            {expires: new Date(Date.now() + 24 * 3600000)}
+        );
             // console.log(decodedToken);
 
             return res.status(201).json({ message: "Login Successfull.", token,  user })
         } else {
-            throw new Error("Invalid Credentials")
+            return res.status(404).json({ message: "Invalid Credentials." })
         }
 
     } catch (err) {
-        res.status(500).json({ message: err.message })
+        console.error(err)
+       return res.status(500).json({ ERROR: "User failed to Login." })
     }
 })
 
@@ -94,7 +99,7 @@ authRouter.post("/auth/logout", async(req, res) => {
        expires: new Date(Date.now())
     })
 
-    res.status(200).json({message: "Logged out Successfully."})
+    return res.status(201).json({message: "Logged out Successfully."})
 })
 
 
