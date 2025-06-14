@@ -8,14 +8,6 @@ const { userAuth } = require("../middlewares/userAuth")
 
 const authRouter = express.Router();
 
-authRouter.get("/auth/check", userAuth, async(req, res) => {
-    try{
-
-       return res.status(200).json({ message: "Authenticated" }); 
-    }catch(err){
-       return res.status(401).json({error: "Not Authenticated."})
-    }
-})
 
 authRouter.post("/auth/signup", async (req, res) => {
 
@@ -54,10 +46,10 @@ authRouter.post("/auth/signup", async (req, res) => {
 
 authRouter.post("/auth/login", async (req, res) => {
 
+    const { email, password } = req.body;
 
     try {
 
-        const { email, password } = req.body;
         if (!validator.isEmail(email)) {
             return res.status(404).json({ message: "Invalid Credentials." })
         }
@@ -101,6 +93,16 @@ authRouter.post("/auth/login", async (req, res) => {
        return res.status(500).json({ ERROR: "User failed to Login." })
     }
 })
+
+authRouter.get("/auth/check", userAuth, async(req, res) => {
+    try{
+
+       return res.status(200).json({ message: "Authenticated" }); 
+    }catch(err){
+       return res.status(401).json({error: "Not Authenticated."})
+    }
+})
+
 
 authRouter.post("/auth/logout", async(req, res) => {
 
